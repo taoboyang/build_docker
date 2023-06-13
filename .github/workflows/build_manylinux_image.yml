@@ -12,6 +12,7 @@ jobs:
     strategy:
       matrix:
         arch: [x86_64, i686, aarch64, ppc64le, s390x]
+    timeout-minutes: 1200
     steps:
     - name: Check out manylinux repo
       uses: actions/checkout@v3
