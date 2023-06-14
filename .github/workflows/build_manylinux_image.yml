@@ -43,6 +43,7 @@ jobs:
         sed -i '/ssl-check.py/s/^/#/g' tests/run_tests.sh
         sed -i 's/^auditwheel --version/export LD_LIBRARY_PATH=\/opt\/python\/cp310-cp310\/lib\nauditwheel --version/g' tests/run_tests.sh
         sed -i '$i\ENV LD_LIBRARY_PATH=\/opt\/python\/cp38-cp38\/lib:\/opt\/python\/cp310-cp310\/lib' docker/Dockerfile
+        sed -i 's/^ln -s $(python -c/LD_LIBRARY_PATH=\/opt\/python\/cp310-cp310\/lib \/opt\/python\/cp310-cp310\/bin\/pip3 install certifi \nln -s $(LD_LIBRARY_PATH=\/opt\/python\/cp310-cp310\/lib \/opt\/python\/cp310-cp310\/bin\/python3 -c/g' docker/build_scripts/finalize.sh
         PLATFORM=${{ matrix.arch }} POLICY=manylinux2014 COMMIT_SHA=latest ./build.sh
         docker image tag quay.io/pypa/manylinux2014_${{ matrix.arch }}:latest smartbrave/manylinux2014_${{ matrix.arch }}_shared_python:latest
      
